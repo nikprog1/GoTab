@@ -127,7 +127,7 @@ function Test() {
   
   // Получаем данные с листа "Все"
   var всеLastRow = всеSheet.getLastRow();
-  if (всеLastRow < 19) {
+  if (всеLastRow < 1) {
     SpreadsheetApp.getUi().alert('На листе "Все" нет данных для обработки');
     return;
   }
@@ -144,8 +144,8 @@ function Test() {
   // Словарь для хранения сумм по категориям
   var суммыПоКатегориям = {};
   
-  // Обрабатываем строки начиная с 19
-  for (var row = 19; row <= всеLastRow; row++) {
+  // Обрабатываем строки начиная с первой строки
+  for (var row = 1; row <= всеLastRow; row++) {
     var датаПлатежа = всеSheet.getRange(row, датаПлатежаCol).getValue();
     var суммаПлатежа = всеSheet.getRange(row, суммаПлатежаCol).getValue();
     var категория = всеSheet.getRange(row, категорияCol).getValue();
