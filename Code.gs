@@ -229,7 +229,8 @@ function Test() {
   
   // Форматируем колонку с суммами
   var суммаCol = результатStartCol + 1;
-  range.getRange(1, 2, результаты.length, 1).setNumberFormat('#,##0.00" RUB"');
+  var суммаRange = aiSheet.getRange(результатStartRow, суммаCol, результаты.length, 1);
+  суммаRange.setNumberFormat('#,##0.00" RUB"');
   
   // Добавляем заголовки, если их нет
   if (результатStartRow > 1) {
