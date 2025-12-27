@@ -158,8 +158,8 @@ function Test() {
       };
     }
     
-    // Обрабатываем строки начиная с первой строки
-    for (var row = 1; row <= всеLastRow; row++) {
+    // Обрабатываем строки начиная со второй строки
+    for (var row = 2; row <= всеLastRow; row++) {
       var датаПлатежа = всеSheet.getRange(row, датаПлатежаCol).getValue();
       var номерКарты = всеSheet.getRange(row, номерКартыCol).getValue();
       var суммаПлатежа = всеSheet.getRange(row, суммаПлатежаCol).getValue();
