@@ -251,8 +251,8 @@ function Test() {
     return;
   }
   
-  // Очищаем предыдущие результаты (очищаем 500 строк, 2 колонки)
-  aiSheet.getRange(результатStartRow, результатStartCol, 500, 2).clearContent();
+  // Очищаем предыдущие результаты (очищаем 500 строк, 3 колонки для таблицы итогов)
+  aiSheet.getRange(результатStartRow, результатStartCol, 500, 3).clearContent();
   
   var текущаяСтрока = результатStartRow;
   
@@ -279,21 +279,35 @@ function Test() {
     return номерКарты;
   }
   
-  // Заголовки таблицы
+  // Рассчитываем общую сумму всех трат
+  var общаяСуммаВсехТрат = 0;
+  for (var i = 0; i < разрешенныеКарты.length; i++) {
+    var карта = разрешенныеКарты[i];
+    общаяСуммаВсехТрат += Math.abs(данныеПоКартам[карта].общаяСумма);
+  }
+  
+  // Заголовки таблицы (теперь 3 колонки)
   aiSheet.getRange(текущаяСтрока, результатStartCol).setValue('Номер карты');
   aiSheet.getRange(текущаяСтрока, результатStartCol).setFontWeight('bold');
   aiSheet.getRange(текущаяСтрока, результатStartCol + 1).setValue('Общая сумма');
   aiSheet.getRange(текущаяСтрока, результатStartCol + 1).setFontWeight('bold');
-  aiSheet.getRange(текущаяСтрока, результатStartCol, 1, 2).setBackground('#E8F0FE');
+  aiSheet.getRange(текущаяСтрока, результатStartCol + 2).setValue('Процент');
+  aiSheet.getRange(текущаяСтрока, результатStartCol + 2).setFontWeight('bold');
+  aiSheet.getRange(текущаяСтрока, результатStartCol, 1, 3).setBackground('#E8F0FE');
   текущаяСтрока++;
   
   // Данные таблицы общих итогов
   for (var i = 0; i < разрешенныеКарты.length; i++) {
     var карта = разрешенныеКарты[i];
     var данные = данныеПоКартам[карта];
+    var суммаКарты = Math.abs(данные.общаяСумма);
+    var процент = общаяСуммаВсехТрат > 0 ? (суммаКарты / общаяСуммаВсехТрат * 100) : 0;
+    
     aiSheet.getRange(текущаяСтрока, результатStartCol).setValue(получитьНазваниеКарты(карта));
-    aiSheet.getRange(текущаяСтрока, результатStartCol + 1).setValue(Math.abs(данные.общаяСумма));
+    aiSheet.getRange(текущаяСтрока, результатStartCol + 1).setValue(суммаКарты);
     aiSheet.getRange(текущаяСтрока, результатStartCol + 1).setNumberFormat('#,##0.00" RUB"');
+    aiSheet.getRange(текущаяСтрока, результатStartCol + 2).setValue(процент);
+    aiSheet.getRange(текущаяСтрока, результатStartCol + 2).setNumberFormat('0.00"%"');
     текущаяСтрока++;
   }
   
@@ -351,8 +365,8 @@ function Test() {
     }
   }
   
-  // Автоподбор ширины колонок
-  aiSheet.autoResizeColumns(результатStartCol, 2);
+  // Автоподбор ширины колонок (3 колонки для таблицы итогов)
+  aiSheet.autoResizeColumns(результатStartCol, 3);
   
   SpreadsheetApp.getUi().alert('Суммирование завершено!');
 }
