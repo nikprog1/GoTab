@@ -864,6 +864,8 @@ function Test() {
 function onOpen() {
   var ui = SpreadsheetApp.getUi();
   ui.createMenu('📊 Финансы')
-    .addItem('Суммировать по категориям', 'Test')
+    .addItem('Анализ расходов', 'Test')
+    .addSeparator()
+    .addItem('Форматировать лист "Все"', 'Format_Income')
     .addToUi();
   }
