@@ -76,28 +76,12 @@ function Test() {
     return;
   }
   
+  // Очищаем весь лист "AI" (включая форматирование)
+  aiSheet.clear();
+  
   // Определяем, куда выводить результаты
-  var результатStartRow = 4; // По умолчанию начинаем с 4 строки
+  var результатStartRow = 2; // Начинаем со второй строки
   var результатStartCol = 1; // Колонка A
-  
-  // Ищем место для вывода результатов
-  var aiValues = aiSheet.getDataRange().getValues();
-  for (var i = 0; i < aiValues.length; i++) {
-    for (var j = 0; j < aiValues[i].length; j++) {
-      if (typeof aiValues[i][j] === 'string' && 
-          (aiValues[i][j].toLowerCase().indexOf('категория') !== -1 || 
-           aiValues[i][j].toLowerCase().indexOf('итого') !== -1 ||
-           aiValues[i][j].toLowerCase().indexOf('карта') !== -1)) {
-        результатStartRow = i + 2; // Начинаем со следующей строки
-        результатStartCol = j + 1;
-        break;
-      }
-    }
-    if (результатStartRow > 4) break;
-  }
-  
-  // Очищаем предыдущие результаты
-  aiSheet.getRange(результатStartRow, результатStartCol, 2000, 3).clearContent();
   
   var текущаяСтрока = результатStartRow;
   
