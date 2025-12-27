@@ -858,14 +858,3 @@ function Test() {
   }
 }
 
-/**
- * Функция для создания меню в Google Sheets
- */
-function onOpen() {
-  var ui = SpreadsheetApp.getUi();
-  ui.createMenu('📊 Финансы')
-    .addItem('Анализ расходов', 'Test')
-    .addSeparator()
-    .addItem('Форматировать лист "Все"', 'Format_Income')
-    .addToUi();
-  }
