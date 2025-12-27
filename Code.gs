@@ -292,7 +292,7 @@ function Test() {
     var карта = разрешенныеКарты[i];
     var данные = данныеПоКартам[карта];
     aiSheet.getRange(текущаяСтрока, результатStartCol).setValue(получитьНазваниеКарты(карта));
-    aiSheet.getRange(текущаяСтрока, результатStartCol + 1).setValue(данные.общаяСумма);
+    aiSheet.getRange(текущаяСтрока, результатStartCol + 1).setValue(Math.abs(данные.общаяСумма));
     aiSheet.getRange(текущаяСтрока, результатStartCol + 1).setNumberFormat('#,##0.00" RUB"');
     текущаяСтрока++;
   }
@@ -341,7 +341,7 @@ function Test() {
         var категория = категорииКарты[j];
         var сумма = данные.категории[категория];
         aiSheet.getRange(текущаяСтрока, результатStartCol).setValue(категория);
-        aiSheet.getRange(текущаяСтрока, результатStartCol + 1).setValue(сумма);
+        aiSheet.getRange(текущаяСтрока, результатStartCol + 1).setValue(Math.abs(сумма));
         aiSheet.getRange(текущаяСтрока, результатStartCol + 1).setNumberFormat('#,##0.00" RUB"');
         текущаяСтрока++;
       }
